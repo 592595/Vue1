@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="..\vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <p>{{ message }}</p>
+</div>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Hello Vue.js!'
+        }
+    })
+</script>
+
+<div id="app-2">
+    <span v-bind:title="message"><!-- v-bind 属性被称为指令 -->
+         Hover your mouse over me for a few seconds to see my dynamically bound title!
+    </span>
+</div>
+<script>
+    var app2=new Vue({
+        el:'#app-2',
+        data:{
+            message:'You loaded this page on'+new Date()
+        }
+    }
+    )
+</script>
+
+<div id="app-3">
+    <p v-if="seen">Now you see me</p>
+</div>
+<script>
+    var app3=new Vue({
+        el:'#app-3',
+        data:{
+            seen:true
+        }
+    })
+</script>
+
+<div id="app-4">
+    <ol>
+        <li v-for="todo in todos"><!-- v-for 指令可以绑定数据到数组来渲染一个列表 -->
+            {{ todo.text }}
+        </li>
+    </ol>
+</div>
+<script>
+    var app4=new Vue({
+        el:'#app-4',
+        data:{
+            todos:[
+                {text:'Learn JavaScript'},
+                {text:'Learn Vue'},
+                {text:'I love you'}
+            ]
+        }
+    })
+</script>
+
+<div id="app-5">
+    <p>{{message}}</p>
+    <button v-on:click="reverseMessage">Reverse Message</button>
+    <!-- v-on 指令绑定一个监听事件用于调用我们 Vue 实例中定义的方法 -->
+</div>
+<script>
+    var app5=new Vue({
+        el:'#app-5',
+        data:{
+            message:'Hello Vue.js!'
+        },
+        methods:{
+            reverseMessage:function(){
+                this.message=this.message.split('').reverse().join('')
+            }
+        }
+    })
+</script>
+
+<div id="app-6"><!--双向数据绑定-->
+    <p>{{message}}</p>
+    <input v-model="message">
+    <!-- v-model 指令，它使得在表单输入和应用状态中做双向数据绑定变得非常轻巧。 -->
+</div>
+<script>
+    var app6=new Vue({
+        el:'#app-6',
+        data:{
+            message:'Hello Vue!'
+        }
+    })
+</script>
+
+<div id="app-7">
+    <ol>
+        <!-- Now we provide each todo-item with the todo object    -->
+        <!-- it's representing, so that its content can be dynamic -->
+        <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+    </ol>
+</div>
+<script>
+    Vue.component('todo-item', {
+        props: ['todo'],
+        template: '<li>{{ todo.text }}</li>'
+    })
+    var app7 = new Vue({
+        el: '#app-7',
+        data: {
+            groceryList: [
+                { text: 'Vegetables' },
+                { text: 'Cheese' },
+                { text: 'Whatever else humans are supposed to eat' }
+            ]
+        }
+    })
+</script>
+</body>
+</html>
